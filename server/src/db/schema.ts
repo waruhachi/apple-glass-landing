@@ -1,18 +1,8 @@
 
-import { serial, text, pgTable, timestamp, numeric } from 'drizzle-orm/pg-core';
+import { pgTable } from 'drizzle-orm/pg-core';
 
-export const landingConfigTable = pgTable('landing_config', {
-  id: serial('id').primaryKey(),
-  title: text('title').notNull(),
-  message: text('message').notNull(),
-  background_color: text('background_color').notNull(),
-  glass_opacity: numeric('glass_opacity', { precision: 3, scale: 2 }).notNull(),
-  spinner_color: text('spinner_color').notNull(),
-  created_at: timestamp('created_at').defaultNow().notNull(),
-  updated_at: timestamp('updated_at').defaultNow().notNull(),
-});
+// Empty schema - no tables needed for static landing page
+// This file is required for drizzle setup but contains no table definitions
 
-export type LandingConfig = typeof landingConfigTable.$inferSelect;
-export type NewLandingConfig = typeof landingConfigTable.$inferInsert;
-
-export const tables = { landingConfig: landingConfigTable };
+// Export empty tables object to maintain consistency with drizzle setup
+export const tables = {};

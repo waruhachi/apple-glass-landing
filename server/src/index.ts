@@ -4,9 +4,6 @@ import { createHTTPServer } from '@trpc/server/adapters/standalone';
 import 'dotenv/config';
 import cors from 'cors';
 import superjson from 'superjson';
-import { landingPageConfigSchema } from './schema';
-import { getLandingPage } from './handlers/get_landing_page';
-import { updateLandingConfig } from './handlers/update_landing_config';
 
 const t = initTRPC.create({
   transformer: superjson,
@@ -19,11 +16,6 @@ const appRouter = router({
   healthcheck: publicProcedure.query(() => {
     return { status: 'ok', timestamp: new Date().toISOString() };
   }),
-  getLandingPage: publicProcedure
-    .query(() => getLandingPage()),
-  updateLandingConfig: publicProcedure
-    .input(landingPageConfigSchema)
-    .mutation(({ input }) => updateLandingConfig(input)),
 });
 
 export type AppRouter = typeof appRouter;
