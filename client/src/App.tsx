@@ -1,14 +1,14 @@
-
 import { useState, useEffect } from 'react';
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    // Simulate initial loading
+    // Show loading briefly then switch to Coming Soon
+    setIsLoading(true);
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 100);
 
     return () => clearTimeout(timer);
   }, []);
@@ -23,35 +23,45 @@ function App() {
         }}
       />
       
-      {/* Glass island container */}
-      <div className="flex items-center justify-center min-h-screen p-5">
-        <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-2xl p-20 max-w-md w-full text-center">
-          {isLoading ? (
-            <div className="space-y-6">
-              {/* Loading spinner */}
-              <div className="flex justify-center">
-                <div className="animate-spin rounded-full h-16 w-16 border-4 border-white/30 border-t-white"></div>
+      {/* Glass island covering entire body with 20px gap */}
+      <div className="absolute inset-5">
+        <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl h-full w-full flex items-center justify-center relative overflow-hidden">
+          {/* Blue skeuomorphic inner glow */}
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-400/10 via-transparent to-blue-600/10 rounded-3xl"></div>
+          
+          {/* Additional glass effect layers */}
+          <div className="absolute inset-0 bg-gradient-to-t from-white/5 to-white/20 rounded-3xl"></div>
+          
+          <div className="text-center relative z-10">
+            {isLoading ? (
+              <div className="space-y-6">
+                {/* Loading spinner with blue accent */}
+                <div className="flex justify-center">
+                  <div className="animate-spin rounded-full h-20 w-20 border-4 border-white/20 border-t-blue-400 shadow-lg"></div>
+                </div>
+                <p className="text-white/90 text-xl font-medium">Loading...</p>
               </div>
-              <p className="text-white/80 text-lg">Loading...</p>
-            </div>
-          ) : (
-            <div className="space-y-6">
-              {/* Coming Soon message */}
-              <div className="space-y-4">
-                <h1 className="text-4xl font-bold text-white">Coming Soon</h1>
-                <p className="text-white/80 text-lg">
-                  We're working on something amazing. Stay tuned!
-                </p>
+            ) : (
+              <div className="space-y-8">
+                {/* Coming Soon message */}
+                <div className="space-y-6">
+                  <h1 className="text-5xl font-bold text-white bg-gradient-to-br from-white to-blue-200 bg-clip-text text-transparent drop-shadow-lg">
+                    Coming Soon
+                  </h1>
+                  <p className="text-white/80 text-xl max-w-md mx-auto leading-relaxed">
+                    We're crafting something extraordinary. Stay tuned for an amazing experience!
+                  </p>
+                </div>
+                
+                {/* Decorative elements with blue accents */}
+                <div className="flex justify-center space-x-3 pt-6">
+                  <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-blue-500 rounded-full animate-pulse shadow-lg"></div>
+                  <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-blue-500 rounded-full animate-pulse shadow-lg" style={{ animationDelay: '0.2s' }}></div>
+                  <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-blue-500 rounded-full animate-pulse shadow-lg" style={{ animationDelay: '0.4s' }}></div>
+                </div>
               </div>
-              
-              {/* Decorative elements */}
-              <div className="flex justify-center space-x-2 pt-4">
-                <div className="w-2 h-2 bg-white/60 rounded-full animate-pulse"></div>
-                <div className="w-2 h-2 bg-white/60 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
-                <div className="w-2 h-2 bg-white/60 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
-              </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </div>
